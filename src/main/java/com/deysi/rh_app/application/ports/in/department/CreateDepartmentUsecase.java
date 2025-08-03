@@ -4,6 +4,6 @@ import com.deysi.rh_app.adapters.in.controller.request.department.CreateDepartme
 
 public interface CreateDepartmentUsecase {
 
-    void create(CreateDepartmentCommand command);
+    void create(CreateDepartmentCommand command) throws Exception;
 
 }

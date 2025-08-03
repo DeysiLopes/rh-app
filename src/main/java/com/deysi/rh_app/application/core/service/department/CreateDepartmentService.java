@@ -14,10 +14,10 @@ public class CreateDepartmentService implements CreateDepartmentUsecase {
     private final SaveDepartmentOutputPort saveDepartmentOutputPort;
 
     @Override
-    public void create(CreateDepartmentCommand command) {
+    public void create(CreateDepartmentCommand command) throws Exception {
        var department = new Department();
        department.setName(command.name());
        department.setCostCenterCode(command.costCenterCOde());
-       saveDepartmentOutputPort.saveDepartment();
+       saveDepartmentOutputPort.saveDepartment(department);
     }
 }
