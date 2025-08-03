@@ -1,4 +1,4 @@
-package com.deysi.rh_app.adapters.out.repository.entity;
+package com.deysi.rh_app.adapters.out.repository.entities;
 
 import com.deysi.rh_app.application.core.domain.StatusEmpoyee;
 import jakarta.persistence.Entity;

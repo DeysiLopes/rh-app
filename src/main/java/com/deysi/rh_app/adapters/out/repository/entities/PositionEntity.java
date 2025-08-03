@@ -1,4 +1,4 @@
-package com.deysi.rh_app.adapters.out.repository.entity;
+package com.deysi.rh_app.adapters.out.repository.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

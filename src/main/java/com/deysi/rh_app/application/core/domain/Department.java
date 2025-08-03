@@ -1,24 +1,24 @@
 package com.deysi.rh_app.application.core.domain;
 
 public class Department {
-    private String id;
+    private Long id;
     private String name;
     private String costCenterCode;
 
     public Department() {
     }
 
-    public Department(String id, String name, String costCenterCode) {
+    public Department(Long id, String name, String costCenterCode) {
         this.id = id;
         this.name = name;
         this.costCenterCode = costCenterCode;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
