@@ -27,17 +27,22 @@ Este documento registra como a IA Generativa (Gemini) foi utilizada como uma fer
     - **DDD**: Foco na modelagem do domínio de negócio, na linguagem ubíqua e na criação de um modelo rico e coeso (o "quê" a aplicação faz).
 - **Decisão Influenciada pela IA**: Ficou claro que as duas são complementares, mas não a mesma coisa. O projeto `rh-app` adotará a Arquitetura Hexagonal para a estrutura e os princípios do DDD para modelar o negócio de RH.
 
-### 3. Transição para o `rh-app` e Definição do Papel da IA
+### 3. Implementação Guiada do Primeiro Fluxo (Create Department)
+**Contexto**: Após a fase teórica, partimos para a implementação do primeiro endpoint (`POST /departments`), onde surgiram dificuldades na conexão das camadas de saída (persistência).
 
+**Interação com a IA**:
+- **Prompt**: "nao consegui fazer a parte da saida @rh-app/** do fluxo do Department da uma olhada do que ja fiz ate o momento"
+- **Evolução**: Ao tentar executar a correção, a IA foi lembrada de seu papel de "professora" e não "executora".
+- **Prompt Corrigido**: "vc é ta no papel de professor apenas e nao executor apenas eu executo me mostre no que errei, pq errei e o passo a passo de como corrigir junto com o conceito do que esta sendo arrumando @teste-senior.md lembresse tbm que estamos fazendo esse desafio tecnico @HISTORICO_ARQUITETURA_HEXAGONAL.md para maior contexto do que estamos estudando"
+- **Resultado**: A IA identificou os erros conceituais nos adaptadores, portas e caso de uso. Forneceu um plano de ação detalhado, explicando os "porquês" de cada passo (criação do Repository, do Mapper, injeção de dependências corretas, e o fluxo de dados entre Camada de Entrada -> Porta de Entrada -> Caso de Uso -> Porta de Saída -> Adaptador de Saída). O desenvolvedor executou o plano, corrigindo o fluxo.
+
+**Decisão Influenciada pela IA**: A decisão de usar o padrão **Mapper** (com MapStruct) foi reforçada pela IA para automatizar a conversão entre a entidade de domínio e a entidade de persistência. Além disso, o princípio da **Inversão de Dependência** foi aplicado na prática, fazendo o Controller depender da abstração da Porta de Entrada, e o Caso de Uso depender da abstração da Porta de Saída.
+
+### 4. Definição do Papel da IA e Próximos Passos
 **Contexto**: Com os conceitos de base solidificados, o foco mudou para o desenvolvimento prático do `rh-app`, iniciando pela funcionalidade de `Department`.
 
 **Interação com a IA**:
-- **Prompt**: "por enquanto igonore o log-ingesting-api... usando todos esses arquivos @ARQUITETURA_HEXAGONAL.md, @HISTORICO_ARQUITETURA_HEXAGONAL.md, @teste-senior.md... estou desenvolvendo o rh-app e vc tem permissao de entrar em todos os diretorios dessa pasta... olheo historico para ver onde paramos... fase 1 Department mas vc é um professor e ta me ensinando e estudando comigo portanto a anao ser que eu peça nao quero que vc faça nenhuma modificacao em codigo no rh-app.. mas vc pode entrar no hex e saga-eda-studies para me trazer snippets de codigo para me mostrar exemplos da minhas duvidas mas lembre que seu papel primeiro é de professor nao de executor, eu executarei as tarefas... quero aprender conceitos de padroes de projetos, hexagonal, ddd, assincrono, etc.. mas vou criar o passo a passo inicial que é criar o Department na mao e quero que me traga topicos guiando minha linha de racicionio em certo momento do desafio quando vc ler é pra documentar meu uso de IA e como foi utilizado quero que vc ja comece esse documento tem aate um exemplo no @teste-senior.md de como tem que ser documento ja adicione os detalhes mais importantes do nosso @HISTORICO_ARQUITETURA_HEXAGONAL.md pra irmos fazendo o documento simultaneamente"
+- **Prompt**: "de uma ultma olhada no que fiz e commitei e gere um resumo do que fizemos me traga em tela o resumo e tbm atualize o @rh-app/AI_USAGE.md que é um dos requisitos do @teste-senior.md... lembrese do que foi combinado no @HISTORICO_ARQUITETURA_HEXAGONAL.md que vc adicione todo o meu prompt para que seja observado minha linha de racicionio"
+- **Resultado**: A IA assimilou o papel de "professor/guia", comprometendo-se a focar nos conceitos e no raciocínio, em vez de gerar código diretamente. A IA também se tornou responsável por manter este documento (`AI_USAGE.md`) atualizado, registrando o processo de aprendizado e desenvolvimento conjunto.
 
-- **Resultado**: A IA assimilou o papel de "professor/guia", comprometendo-se a focar nos conceitos e no raciocínio, em vez de gerar código diretamente. A primeira ação foi criar este mesmo documento de `AI_USAGE.md` para registrar o processo.
-
-**Decisão Influenciada pela IA**: O modo de interação foi estabelecido como socrático. A IA não entregará soluções prontas, mas guiará o desenvolvimento através de perguntas e da estruturação de fluxos de trabalho, começando pelo `Department`.
-
-## Próximos Passos
-
-O plano é continuar usando a IA como um parceiro de "pair programming" socrático, onde a IA questiona e guia o raciocínio para a implementação manual das funcionalidades, começando pela entidade `Department`.
+**Decisão Influenciada pela IA**: O modo de interação foi estabelecido como socrático. A IA não entregará soluções prontas, mas guiará o desenvolvimento através de perguntas e da estruturação de fluxos de trabalho. O plano é continuar usando a IA como um parceiro de "pair programming" socrático para as próximas funcionalidades.
