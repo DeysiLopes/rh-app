@@ -46,3 +46,36 @@ Este documento registra como a IA Generativa (Gemini) foi utilizada como uma fer
 - **Resultado**: A IA assimilou o papel de "professor/guia", comprometendo-se a focar nos conceitos e no raciocínio, em vez de gerar código diretamente. A IA também se tornou responsável por manter este documento (`AI_USAGE.md`) atualizado, registrando o processo de aprendizado e desenvolvimento conjunto.
 
 **Decisão Influenciada pela IA**: O modo de interação foi estabelecido como socrático. A IA não entregará soluções prontas, mas guiará o desenvolvimento através de perguntas e da estruturação de fluxos de trabalho. O plano é continuar usando a IA como um parceiro de "pair programming" socrático para as próximas funcionalidades.
+
+### 5. Estratégia de Testes e Testcontainers
+**Contexto**: Após a implementação do fluxo de criação, a necessidade era definir e implementar a estratégia de testes unitários e de integração, conforme os requisitos do desafio. Havia dúvidas sobre o funcionamento do Testcontainers.
+
+**Interação com a IA**:
+- **Prompt**: "pensando em testes unitarios primeiro... quero testar cenarios de sucesso e falha e que vc mapeeie esses cenarios pra mim..." e "ta to em duvida no como dos test containers funciona parecido com dev tools do quarkus?"
+- **Resultado**: A IA:
+    - Mapeou cenários detalhados de sucesso e falha para os testes unitários do `CreateDepartmentUseCase`, no formato Arrange-Act-Assert.
+    - Explicou a diferença conceitual entre Quarkus Dev Services (mágico, para desenvolvimento) e Testcontainers (programático, para testes).
+    - Forneceu um exemplo completo de como seria a classe de teste de integração, demonstrando o ciclo de vida e a configuração com `@Testcontainers`, `@Container` e, posteriormente, a simplificação com `@ServiceConnection` do Spring Boot 3.1+.
+- **Decisão Influenciada pela IA**: A abordagem de testes foi estruturada com base nos cenários mapeados pela IA. A implementação dos testes de integração foi diretamente baseada no exemplo e na explicação sobre Testcontainers, desmistificando seu uso e acelerando a configuração inicial.
+
+### 6. Debugging Colaborativo de Testes de Integração
+**Contexto**: A primeira tentativa de executar os testes de integração com Testcontainers resultou em uma série de erros complexos, começando com a falha em conectar ao banco de dados do contêiner.
+
+**Interação com a IA**:
+- **Prompt**: "olha o report do erro do teste de integracao nao estou conseguindo arrumar.. Caused by: ... Failed to determine a suitable driver class"
+- **Resultado**: A IA guiou um processo de debugging passo a passo:
+    1.  **Erro 1 (`Failed to determine a suitable driver class`):** A IA identificou a falta de configuração dinâmica da URL do banco de dados e sugeriu o uso de `@ServiceConnection` para resolver.
+    2.  **Erro 2 (`JdbcTypeRecommendationException`):** Após corrigir a conexão, o Hibernate falhou. A IA analisou as entidades e apontou a inconsistência de tipos entre o `id` (declarado como `String`) e o uso no banco (`UUID`), sugerindo a correção para `UUID`.
+    3.  **Erro 3 (Cascata de erros de contexto):** O erro persistiu. A IA continuou a investigação, descobrindo que o problema real estava em outra entidade (`EmployeeEntity`) que não possuía os mapeamentos de relacionamento (`@ManyToOne`, `@JoinColumn`) corretos, impedindo o Hibernate de construir o grafo de entidades.
+- **Decisão Influenciada pela IA**: Este processo de depuração foi uma aula prática sobre a importância da configuração correta do Testcontainers e, mais crucialmente, sobre como os erros de mapeamento do ORM podem se manifestar de formas inesperadas. A solução foi encontrada de forma iterativa, com a IA analisando os logs de erro e propondo correções pontuais e conceituais.
+
+### 7. Design do Fluxo de Leitura (Query)
+**Contexto**: Com o fluxo de escrita (Command) finalizado e testado, o próximo passo era implementar a parte de leitura (Query) do CRUD de Departamentos.
+
+**Interação com a IA**:
+- **Prompt**: "sim vamos desenhar esse fluxo para prosseguirmos..."
+- **Resultado**: A IA:
+    - Propôs a criação do fluxo `GET /departments`.
+    - Gerou um diagrama de sequência em Mermaid detalhando toda a comunicação, desde o Controller até o Banco de Dados.
+    - Enfatizou a importância de usar DTOs de resposta (`ResponseDTO`) na camada de Controller para evitar o vazamento de objetos do domínio para o cliente, um princípio chave da Arquitetura Limpa/Hexagonal.
+- **Decisão Influenciada pela IA**: O design do fluxo de leitura foi diretamente baseado no diagrama e nas explicações da IA. A decisão de criar um `DepartmentResponseDTO` e usar um `Mapper` para a conversão na camada do Controller foi adotada para manter o encapsulamento do domínio.
