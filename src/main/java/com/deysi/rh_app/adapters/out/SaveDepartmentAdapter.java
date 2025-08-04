@@ -7,6 +7,8 @@ import com.deysi.rh_app.application.ports.out.department.SaveDepartmentOutputPor
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class SaveDepartmentAdapter implements SaveDepartmentOutputPort {
@@ -21,13 +23,13 @@ public class SaveDepartmentAdapter implements SaveDepartmentOutputPort {
     }
 
     @Override
-    public Department findDepartmentById(Long id) throws Exception {
+    public Department findDepartmentById(UUID id) throws Exception {
         // Implementation for finding a department by ID
         return null;
     }
 
     @Override
-    public void deleteDepartment(Long id) throws Exception {
+    public void deleteDepartment(UUID id) throws Exception {
         // Implementation for deleting a department
     }
 

@@ -15,6 +15,9 @@ public class CreateDepartmentService implements CreateDepartmentUsecase {
 
     @Override
     public void create(CreateDepartmentCommand command) throws Exception {
+        if (command.name() == null || command.costCenterCOde() == null) {
+            throw new IllegalArgumentException("O nome e o centro de custo do departamento não pode ser nulo.");
+        }
        var department = new Department();
        department.setName(command.name());
        department.setCostCenterCode(command.costCenterCOde());

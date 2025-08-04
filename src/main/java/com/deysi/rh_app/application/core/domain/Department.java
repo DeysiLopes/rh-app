@@ -1,24 +1,26 @@
 package com.deysi.rh_app.application.core.domain;
 
+import java.util.UUID;
+
 public class Department {
-    private Long id;
+    private UUID id;
     private String name;
     private String costCenterCode;
 
     public Department() {
     }
 
-    public Department(Long id, String name, String costCenterCode) {
+    public Department(UUID id, String name, String costCenterCode) {
         this.id = id;
         this.name = name;
         this.costCenterCode = costCenterCode;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

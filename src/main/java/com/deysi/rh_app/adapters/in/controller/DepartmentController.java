@@ -19,7 +19,7 @@ public class DepartmentController {
     private final CreateDepartmentUsecase departmentUsecase;
 
      @PostMapping
-     public ResponseEntity<Void> createDepartment(@RequestBody CreateDepartmentRequest request) {
+     public ResponseEntity<Void> createDepartment(@RequestBody CreateDepartmentRequest request) throws Exception {
          var command = new CreateDepartmentCommand(request.getName(), request.getCostCenterCode());
          departmentUsecase.create(command);
          return ResponseEntity.status(201).build();
