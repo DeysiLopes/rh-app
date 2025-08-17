@@ -1,6 +1,6 @@
 package com.deysi.rh_app.adapters.out;
 
-import com.deysi.rh_app.adapters.in.controller.mapper.DepartmentMapper;
+import com.deysi.rh_app.adapters.out.repository.mappers.DepartmentMapper;
 import com.deysi.rh_app.adapters.out.repository.DepartmentRepository;
 import com.deysi.rh_app.application.core.domain.Department;
 import com.deysi.rh_app.application.ports.out.department.SaveDepartmentOutputPort;
