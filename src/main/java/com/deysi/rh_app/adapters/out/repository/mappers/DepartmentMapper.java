@@ -1,4 +1,4 @@
-package com.deysi.rh_app.adapters.in.controller.mapper;
+package com.deysi.rh_app.adapters.out.repository.mappers;
 
 import com.deysi.rh_app.adapters.out.repository.entities.DepartmentEntity;
 import com.deysi.rh_app.application.core.domain.Department;

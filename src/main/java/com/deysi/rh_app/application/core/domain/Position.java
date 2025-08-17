@@ -1,25 +1,27 @@
 package com.deysi.rh_app.application.core.domain;
 
+import java.util.UUID;
+
 public class Position {
 
-    private String id;
+    private UUID id;
     private String title;
     private String level;
 
     public Position() {
     }
 
-    public Position(String id, String title, String level) {
+    public Position(UUID id, String title, String level) {
         this.id = id;
         this.title = title;
         this.level = level;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
